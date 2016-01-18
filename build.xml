@@ -103,9 +103,9 @@
                 </fileset>
             </copy>
         </target>
-        <target name="execute.client">
+        <target name="run" depends = "install">
             <echo message="app start ClientSide in ${build.dir}" />
-            <java classname="ClientSide" classpath="${build.dir}" fork="true">
+            <java classname="UserInterface" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />
