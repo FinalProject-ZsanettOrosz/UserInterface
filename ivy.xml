@@ -1,134 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- ================================= 
-    Introduction to Service Design and Engineering Laboratory
-    Description: ANT build script for the session on JAXB and Dozer 
-    Author: cdparra
-    
-    Notes: 
-    
-    * This build file includes targets to download and install in your local project the Apache IVY jar
-    * IVY is used to manage dependencies on projects (e.g., jaxb libraries, jackson libraries for json, etc.) 
-    * 
-       TO USE IVY IN YOUR PROJECTS IN ORDER TO GET MANAGE DEPENDENCIES, MAKE SURE THE FOLLOWING LINES ARE
-       IN YOUR BUILD.XML UNTILL 'IVY-END-LINE'
-       
-       # The target "download-ivy" and "install-ivy" will download the ivy jar and place it in the "ivy" folder
-       # 
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
 -->
-<project name="UserInterface" default="install" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info
+        organisation="introsde"
+        module="assigment02"
+        status="integration">
+	</info>
+	
+	<dependencies>
+	
+        <dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.11"/>
+        <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.7"/>
+        <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.7"/>
+        <dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0"/>
+        <dependency org="org.glassfish.jersey.core" name="jersey-common" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.core" name="jersey-server" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.core" name="jersey-client" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.containers" name="jersey-container-servlet" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.containers" name="jersey-container-jetty-http" rev="2.11"/>
+<!--        <dependency org="org.glassfish.jersey.containers" name="jersey-container-grizzly2-http" rev="2.11"/>
+    -->    
+        <dependency org="org.glassfish.jersey.containers" name="jersey-container-jdk-http" rev="2.11"/>
+            
+        <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.4.2">
+            <artifact name="jackson-core" type="jar"/>
+        </dependency>
+        <dependency org="com.fasterxml.jackson.module" name="jackson-module-jaxb-annotations" rev="2.4.1">
+            <artifact name="jackson-module-jaxb-annotations" type="jar"/>
+        </dependency>
+        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.4.2">
+            <artifact name="jackson-databind" type="jar"/>
+        </dependency>
+        <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.4.2">
+            <artifact name="jackson-annotations" type="jar"/>
+        </dependency>
+        <dependency org="com.fasterxml.jackson.jaxrs" name="jackson-jaxrs-json-provider" rev="2.4.2">
+            <artifact name="jackson-jaxrs-json-provider" type="jar"/>
+        </dependency>
+        <dependency org="com.fasterxml.jackson.jaxrs" name="jackson-jaxrs-base" rev="2.4.2">
+            <artifact name="jackson-jaxrs-base" type="jar"/>
+        </dependency>
+        
+        <dependency org="org.xerial" name="sqlite-jdbc" rev="3.7.2"/>
+        <dependency org="org.mongodb" name="mongo-java-driver" rev="2.12.3"/>
+        <dependency org="com.h2database" name="h2" rev="1.4.181"/>
+        <dependency org="org.apache.derby" name="derby" rev="10.10.2.0"/>
+        <dependency org="javax.ejb" name="javax.ejb-api" rev="3.2"/>
+        <dependency org="org.eclipse.persistence" name="javax.persistence" rev="2.1.0"/>
+        <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.jpa" rev="2.5.2"/>
+        
+        <dependency org="net.sf.dozer" name="dozer" rev="5.5.1"/>
+        <dependency org="joda-time" name="joda-time" rev="2.4"/>
+        <dependency org="org.slf4j" name="slf4j-nop" rev="1.7.7"/>
 
-	<!-- PART 1: Ivy properties, download, installation and configuration -->
-	<property name="ivy.install.version" value="2.4.0-rc1" />
-	<property name="ivy.jar.dir" value="${basedir}/ivy" />
-	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+        <dependency org="org.json" name="json" rev="20140107"/>
+        <dependency org="com.googlecode.json-simple" name="json-simple" rev="1.1.1"/>
 
-	<!-- this targe will donwload ivy.jar if its inot in the "ivy" folder yet -->
-	<target name="download-ivy" unless="skip.download">
-		<mkdir dir="${ivy.jar.dir}" />
-		<!-- download Ivy from web site so that it can be used even without any special installation -->
-		<echo message="installing ivy..." />
-		<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
-	</target>
+        <dependency org="org.glassfish.jersey.media" name="jersey-media-json-jackson" rev="2.11"/>
+        <dependency org="junit" name="junit-dep" rev="4.8.2"/>     
 
-	<!--
-			 ================================= 
-			          target: install-ivy         
-			            this target is not necessary if you put ivy.jar in your ant lib directory
-			            if you already have ivy in your ant lib, you can simply remove this
-			            target and the dependency the 'init' target has on it
-			         ================================= 
-			-->
-	<target name="install-ivy" depends="download-ivy" description="--> install ivy">
-		<!--
-			 try to load ivy here from local ivy dir, in case the user has not already dropped
-			              it into ant's lib dir (note that the latter copy will always take precedence).
-			              We will not fail as long as local lib dir exists (it may be empty) and
-			              ivy is in at least one of ant's lib dir or the local lib dir. 
-			-->
-		<path id="ivy.lib.path">
-			<fileset dir="${ivy.jar.dir}" includes="*.jar" />
-		</path>
-		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
-	</target>
+        <dependency org="com.jayway.jsonpath" name="json-path-assert" rev="0.8.1"/>
 
-	<!-- PART 2: General properties definitions -->
-	<property name="build.dir" value="build" />
-	<property name="src.dir" value="src" />
-	<property name="lib.dir" value="WebContent/WEB-INF/lib" />
-	<property name="web.dir" value="." />
-
-	<!-- ================================= 
-	          target: resolve downloads the dependencies to your lib folder              
-	         ================================= -->
-	<target name="resolve" depends="install-ivy" description="--> retrieve dependencies with ivy">
-		<ivy:retrieve pattern="${lib.dir}/[type]s-[artifact]-[revision].[ext]" />
-	</target>
-
-
-	<!-- paths where ivy libraries will be downloaded, use them as classpathref in your compilation and running tasks  -->
-	<path id="lib.path.id">
-		<fileset dir="${lib.dir}" />
-	</path>
-
-
-	<path id="run.path.id">
-		<path refid="lib.path.id" />
-		<fileset dir="${build.dir}">
-			<include name="*.class" />
-			<include name="**/*.class" />
-			<exclude name="**/*Test*" />
-		</fileset>
-	</path>
-
-	<!-- PART 3: compilation and execution targets for this session -->
-	<target name="init" depends="install-ivy, resolve">
-		<echo message="Init has been called" />
-		<mkdir dir="${build.dir}" />
-		<echo message="${build.dir} has been created" />
-	</target>
-
-	<target name="clean">
-		<echo message="Clean has been called" />
-		<delete dir="${build.dir}" />
-		<echo message="${build.dir} has been deleted" />
-		<delete dir="${src.dir}/${xjc.package}" />
-		<echo message="${src.dir}/${xjc.package} has been deleted" />
-		<delete file="catalog.xml" />
-		<echo message="catalog.xml has been deleted" />
-	</target>
-
-	<target name="install" depends="clean, init">
-		<echo message="Compile target has been called" />
-		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="lib.path.id" includeAntRuntime="false">
-		</javac>
-		<copy todir="${build.dir}" overwrite="true">
-			<fileset dir="${src.dir}">
-				<include name="*.xml" />
-				<include name="**/*.xml" />
-			</fileset>
-		</copy>
-	</target>
-	<target name="run" depends="install">
-		<echo message="app start introsde.rest.ehealth.App in ${build.dir}" />
-		<java classname="introsde.assignment.soap.endpoint.PeoplePublisher" classpath="${build.dir}" fork="true">
-			<arg value="$JAVA_OPTS  -cp" />
-			<classpath>
-				<path location="build" />
-				<fileset dir="WebContent/WEB-INF/lib">
-					<include name="**/*.jar" />
-					<include name="*.jar" />
-				</fileset>
-			</classpath>
-		</java>
-	</target>
-
-	<!-- make sure you have created first the WebContent folder, including a META-INF folder, WEB-INF/web.xml file and WEB-INF/lib folder -->
-	<target name="create.war" depends="install">
-		<war destfile="sdelab08.war" webxml="${web.dir}/WebContent/WEB-INF/web.xml">
-			<fileset dir="${web.dir}/WebContent">
-				<include name="**/*.*" />
-			</fileset>
-			<classes dir="${build.dir}" />
-		</war>
-	</target>
-</project>
+        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.5.1"/>
+        <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.4.4"/>
+        <dependency org="org.json" name="json" rev="20090211"/>
+        <dependency org="commons-logging" name="commons-logging" rev="1.1.2"/>
+        
+        
+    </dependencies>
+	
+</ivy-module>
