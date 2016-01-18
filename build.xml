@@ -109,7 +109,7 @@
 		</copy>
 	</target>
 	<target name="run" depends="install">
-		<echo message="app start introsde.rest.ehealth.App in ${build.dir}" />
+		<echo message="app start UserInterface in ${build.dir}" />
 		<java classname="userinterface.UserInterface" classpath="${build.dir}" fork="true">
 			<arg value="$JAVA_OPTS  -cp" />
 			<classpath>
