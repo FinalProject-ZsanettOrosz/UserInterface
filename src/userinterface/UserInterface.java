@@ -163,8 +163,8 @@ public class UserInterface {
 		}else if(option == 2){
 			measureType = allMeasuresArray.getString(1);
 		}
-		System.out.println(measureType);
-		System.out.println(this.user.getInt("idPerson"));
+		//System.out.println(measureType);
+		//System.out.println(this.user.getInt("idPerson"));
 		System.out.println("Give the new value:");
 		String postedValue = reader.readLine();
 		System.out.println(postedValue);
