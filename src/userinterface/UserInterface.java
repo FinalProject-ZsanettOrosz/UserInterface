@@ -164,12 +164,12 @@ public class UserInterface {
 			measureType = allMeasuresArray.getString(1);
 		}
 		System.out.println(measureType);
-		System.out.println(this.user.getString("idPerson"));
+		System.out.println(this.user.getInt("idPerson"));
 		System.out.println("Give the new value:");
 		String postedValue = reader.readLine();
 		System.out.println(postedValue);
 		String urlToPost = "http://10.218.223.84:5703/sdelab/person/"
-				+ this.user.getString("idPerson") + "/" + measureType; //to PC
+				+ this.user.getInt("idPerson") + "/" + measureType; //to PC
 
 		// post sends the pic
 		String picUrl = doPostRequest(urlToPost, postedValue);
@@ -177,7 +177,7 @@ public class UserInterface {
 
 		// re-read the user, so it is with the new values
 		String updated = doGetRequest("http://10.218.223.84:5702/sdelab/person/"
-				+ this.user.getString("idPerson"));
+				+ this.user.getInt("idPerson"));
 		this.user = new JSONObject(updated);
 
 	}
