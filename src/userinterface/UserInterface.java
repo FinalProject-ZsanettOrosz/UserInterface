@@ -54,7 +54,7 @@ public class UserInterface {
 
 	private JSONArray readAllUsers() throws ClientProtocolException,
 			IOException, JSONException {
-		String newRequest = "http://10.218.223.84:5702/sdelab/person";
+		String newRequest = "https://secret-forest-8470.herokuapp.com/sdelab/person";//BB
 
 		String result = doGetRequest(newRequest);
 
@@ -145,7 +145,7 @@ public class UserInterface {
 	private void saveNewLifeStatus() throws IllegalStateException, IOException,
 			JSONException {
 		System.out.println("Which measure? ");
-		String allMeasuresUrl = "http://10.218.223.84:5702/sdelab/measureTypes";
+		String allMeasuresUrl = "https://secret-forest-8470.herokuapp.com/sdelab/measureTypes"; //BL
 		String allMeasures = doGetRequest(allMeasuresUrl);
 		JSONArray allMeasuresArray = new JSONArray(allMeasures);
 
@@ -168,7 +168,7 @@ public class UserInterface {
 		System.out.println("Give the new value:");
 		String postedValue = reader.readLine();
 		System.out.println(postedValue);
-		String urlToPost = "http://10.218.223.84:5703/sdelab/person/"
+		String urlToPost = "https://limitless-beach-6983.herokuapp.com/sdelab/person/"
 				+ this.user.getInt("idPerson") + "/" + measureType; //to PC
 
 		// post sends the pic
@@ -176,8 +176,8 @@ public class UserInterface {
 		System.out.println(picUrl);
 
 		// re-read the user, so it is with the new values
-		String updated = doGetRequest("http://10.218.223.84:5702/sdelab/person/"
-				+ this.user.getInt("idPerson"));
+		String updated = doGetRequest("https://secret-forest-8470.herokuapp.com/sdelab/person/"
+				+ this.user.getInt("idPerson")); //BL
 		this.user = new JSONObject(updated);
 
 	}
